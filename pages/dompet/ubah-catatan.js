@@ -8,7 +8,7 @@ import { getPostsData, getCategories } from '@/lib/api'
 import CategoriesWidget from "@/components/blog/categories-widget";
 import SearchWidget from "@/components/blog/search-widget";
 
-export default function Statistik({ posts, categories }) {
+export default function UbahCatatan({ posts, categories }) {
   return (
     <>
       <section id="blog-roll" className="blog-roll-nav">
