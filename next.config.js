@@ -1,16 +1,17 @@
 module.exports = {
   reactStrictMode: true,
-  async rewrites() {
-    return [
-      {
-        source: "/",
-        destination: "/landing-page/landing-page-with-components",
-      }
-    ];
-  },
+  // async rewrites() {
+  //   return [
+  //     {
+  //       source: "/",
+  //       // destination: "/landing-page/landing-page-with-components",
+  //       destination: "/blog",
+  //     }
+  //   ];
+  // },
   redirects() {
     const sourcesRequiringAuthToken = [
-      "/", "/landing-page/:slug*", "/blog/:path*"
+      // "/", "/landing-page/:slug*", "/blog/:path*"
     ]
 
     return process.env.NEXT_PUBLIC_BUTTER_CMS_API_KEY ? [
