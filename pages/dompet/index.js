@@ -7,8 +7,9 @@ import PostsList from "@/components/blog/posts-list";
 import { getPostsData, getCategories } from '@/lib/api'
 import CategoriesWidget from "@/components/blog/categories-widget";
 import SearchWidget from "@/components/blog/search-widget";
+import RecordTable from "@/components/dompet/record-table";
 
-export default function Dompet({ posts, categories }) {
+export default function Dompet({ records, amount }) {
   return (
     <>
       <section id="blog-roll" className="blog-roll-nav">
@@ -16,28 +17,36 @@ export default function Dompet({ posts, categories }) {
           <div className="row justify-content-center">
             <div className="col-12">
               <div className="section-title text-center">
-                <h2>All Blog Posts</h2>
-                <ul className="breadcrumb-nav">
-                  <li>
-                    <Link href="/">
-                      <a>Home</a>
-                    </Link></li>
-                  <li>All blog posts</li>
-                </ul>
+                <h2>Dompet</h2>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="blog-posts">
+      <section className="blog-posts dompet-content">
         <div className="container">
           <div className="row justify-content-center">
-            <PostsList posts={posts} />
-            <aside className="col-12 col-lg-4">
-              <SearchWidget />
-              <CategoriesWidget categories={categories} />
-            </aside>
+            <div className="col-12 col-lg-8 record-card">
+              <div className="dompet-section">
+                <div className="dompet-section-head">
+                  <h3>Saldo</h3>
+                </div>
+                <div className="amount-section">
+                  <p className="amount">Rp {amount}</p>
+                </div>
+              </div>
+
+              <div className="dompet-section">
+                <div className="d-flex dompet-section-head">
+                  <h3>Riwayat Keuangan</h3>
+                  <Link href='/dompet/tambah-catatan'>
+                    <a className="btn btn-primary ms-auto">Tambah catatan</a>
+                  </Link>
+                </div>
+                <RecordTable records={records} />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -58,11 +67,30 @@ export async function getStaticProps() {
       console.log("Could not get posts", e)
 
       return {
-        props: { posts: [], categories: [] }
+        props: { records: [], amount: [] }
       }
     }
   }
 
-  return { props: { posts: [], categories: [] } }
+  let amount = (2500000).toLocaleString('id-ID', {
+    valute: 'IDR',
+  });
+
+  const dummy_records = [
+    {
+    "id": 1,
+    "date": "12122022",
+    "amount": "50000",
+    "notes": "Azzzzzzz",
+    },
+    {
+      "id": 2,
+      "date": "130920022",
+      "amount": "25000",
+      "notes": "Axxxxxxxxxxx",
+    }
+  ]
+
+  return { props: { records: dummy_records, amount: amount } }
 }
 

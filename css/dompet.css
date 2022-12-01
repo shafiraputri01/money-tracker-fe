@@ -1,0 +1,23 @@
+.dompet-content {
+    padding: 20px 0px;
+    margin: 40px 0px;
+}
+
+.dompet-section {
+    margin: 40px 0px;
+}
+
+.dompet-section .dompet-section-head {
+    margin-bottom: 16px;
+}
+
+.dompet-section .amount-section {
+    padding: 16px;
+    background-color: white;
+    border: 0.5px solid #ABABAB;
+    border-radius: 10px;
+}
+
+.dompet-section .amount {
+    font-size: 1.75rem;
+}
