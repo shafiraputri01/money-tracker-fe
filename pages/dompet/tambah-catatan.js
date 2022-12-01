@@ -31,7 +31,7 @@ export default function TambahCatatan({ posts, categories }) {
         </div>
       </section>
 
-      <section className="form-add">
+      <section className="form-add mb-50">
         <div className="container" style={{width:'80%'}}>
           <div className="">
             <div class="mb-3">
@@ -60,7 +60,10 @@ export default function TambahCatatan({ posts, categories }) {
               <input class="form-control" id="deskripsi" maxLength={200} placeholder="Tuliskan deskripsi maks 200 karakter"/>
             </div>
             <div className="mb-3 row justify-content-center">
-              <input className="col-3 btn btn-primary" type="submit" value="Submit" style={{'background-color':'#37C2CC'}}/>
+              <input className="col-3 btn btn-primary" type="submit" value="Simpan" style={{'background-color':'#37C2CC'}}/>
+            </div>
+            <div className="mb-3 row justify-content-center">
+              <a href="/dompet" class="col-3 text-center" style={{color:"red"}}>Batal</a>
             </div>
           </div>
         </div>
