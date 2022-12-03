@@ -1,0 +1,20 @@
+.footerHome {
+    background-color: #2e8e97;
+    padding: 2em;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 5px;
+    position: absolute;
+    width: 100vw;
+    bottom: 0;
+}
+
+.footerOther {
+    background-color: #2e8e97;
+    padding: 2em;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    margin-bottom: 5px;
+}

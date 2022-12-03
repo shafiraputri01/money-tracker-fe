@@ -17,6 +17,7 @@ import '@/css/lineicons.css'
 
 import '@/css/tiny-slider.min.css'
 import '@/css/main.css'
+import '@/css/footer.css'
 import '@/css/dompet.css'
 
 function MyApp({ Component, pageProps, mainMenu }) {
