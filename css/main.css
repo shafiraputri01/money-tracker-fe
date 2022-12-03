@@ -1196,13 +1196,30 @@ p {
   margin-bottom: 60px;
 }
 
+.buttonHover:hover {
+  background-color: rgb(135, 193, 234);
+}
+.buttonCatatan  {
+  background-color:  #2e8e97 !important;
+}
+.buttonCatatanHover:hover   {
+  background-color:  rgb(135, 193, 234) !important;
+}
+
+.button-custom{
+  background-color: #2e8e97;
+}
+
+.button-custom-other{
+  background-color: #2e8e97;
+  margin-left: auto;
+}
+
+
 @media only screen and (min-width: 1400px), only screen and (min-width: 1200px) and (max-width: 1399px) {
   .blog-section .section-title {
     padding: 0px 40px;
   }
-}
-.button-custom{
-  background-color: #2e8e97;
 }
 
 .blog-section .section-title h2 {

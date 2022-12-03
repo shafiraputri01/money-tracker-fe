@@ -1,14 +1,11 @@
 import Link from "next/link";
 
-import camelcaseKeys from 'camelcase-keys';
+import camelcaseKeys from "camelcase-keys";
+import Footer from "../../components/footer-section";
+import { getPostsData, getCategories } from "@/lib/api";
+import TableStatistik from "@/components/statistik/table-statistik";
 
-import PostsList from "@/components/blog/posts-list";
-
-import { getPostsData, getCategories } from '@/lib/api'
-import CategoriesWidget from "@/components/blog/categories-widget";
-import SearchWidget from "@/components/blog/search-widget";
-
-export default function Statistik({ posts, categories }) {
+export default function Statistik({ records }) {
   return (
     <>
       <section id="blog-roll" className="blog-roll-nav">
@@ -16,13 +13,18 @@ export default function Statistik({ posts, categories }) {
           <div className="row justify-content-center">
             <div className="col-12">
               <div className="section-title text-center">
-                <h2>All Blog Posts</h2>
+                <h2>Statistik Keuangan</h2>
                 <ul className="breadcrumb-nav">
                   <li>
                     <Link href="/">
                       <a>Home</a>
-                    </Link></li>
-                  <li>All blog posts</li>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link href="/dompet">
+                      <a>Lihat Dompet</a>
+                    </Link>
+                  </li>
                 </ul>
               </div>
             </div>
@@ -30,39 +32,56 @@ export default function Statistik({ posts, categories }) {
         </div>
       </section>
 
-      <section className="blog-posts">
-        <div className="container">
-          <div className="row justify-content-center">
-            <PostsList posts={posts} />
-            <aside className="col-12 col-lg-4">
-              <SearchWidget />
-              <CategoriesWidget categories={categories} />
-            </aside>
-          </div>
-        </div>
+      <section>
+      <br></br>
+        <TableStatistik records={records} />
+      </section>
+
+      <section>
+        <Footer />
       </section>
     </>
-  )
+  );
 }
 
 export async function getStaticProps() {
-  const butterToken = process.env.NEXT_PUBLIC_BUTTER_CMS_API_KEY
+  const butterToken = process.env.NEXT_PUBLIC_BUTTER_CMS_API_KEY;
 
   if (butterToken) {
     try {
-      const blogPosts = (await getPostsData()).posts
-      const categories = await getCategories()
+      const blogPosts = (await getPostsData()).posts;
+      const categories = await getCategories();
 
       return { props: { posts: camelcaseKeys(blogPosts), categories } };
     } catch (e) {
-      console.log("Could not get posts", e)
+      console.log("Could not get posts", e);
 
       return {
-        props: { posts: [], categories: [] }
-      }
+        props: { posts: [], categories: [] },
+      };
     }
   }
 
-  return { props: { posts: [], categories: [] } }
-}
+  const dummy_records = [
+    {
+      id: 1,
+      bulan: "Januari",
+      pendapatan: "500000",
+      pengeluaran: "100000",
+    },
+    {
+      id: 2,
+      bulan: "Februari",
+      pendapatan: "400000",
+      pengeluaran: "250000",
+    },
+    {
+      id: 3,
+      bulan: "Maret",
+      pendapatan: "750000",
+      pengeluaran: "75000",
+    },
+  ];
 
+  return { props: { records: dummy_records } };
+}
