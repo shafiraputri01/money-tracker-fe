@@ -1201,6 +1201,9 @@ p {
     padding: 0px 40px;
   }
 }
+.button-custom{
+  background-color: #2e8e97;
+}
 
 .blog-section .section-title h2 {
   margin-bottom: 15px;

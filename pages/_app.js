@@ -17,7 +17,7 @@ import '@/css/lineicons.css'
 
 import '@/css/tiny-slider.min.css'
 import '@/css/main.css'
-
+import '@/css/footer.css'
 function MyApp({ Component, pageProps, mainMenu }) {
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter()
