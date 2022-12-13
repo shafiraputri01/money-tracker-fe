@@ -16,7 +16,7 @@ export default function RecordTable({
             </thead>
             <tbody>
                 {records.map(record => (
-                    <tr>
+                    <tr key={record.id}>
                         <td>{record.date}</td>
                         <td>{record.amount}</td>
                         <td>{record.notes}</td>
@@ -32,7 +32,7 @@ export default function RecordTable({
                 ))}
                 {!records.length && (
                     <tr>
-                    <td colspan="4" className="text-center">Belum ada riwayat keuangan</td>
+                    <td colSpan="4" className="text-center">Belum ada riwayat keuangan</td>
                     </tr>
                 )}
             </tbody>

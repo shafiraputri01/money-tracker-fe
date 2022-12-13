@@ -19,7 +19,6 @@ export default function Index() {
                   <Link href="/statistik">
                     <a
                       className="btn button-custom button-primary me-3 buttonHover"
-                      href="/statistik"
                       role="button"
                     >
                       Lihat Statistik

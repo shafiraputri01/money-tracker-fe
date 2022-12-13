@@ -15,7 +15,7 @@ export default function TableStatistik({
               </thead>
               <tbody>
                   {records.map(record => (
-                      <tr>
+                      <tr key={record.id}>
                           <td>{record.bulan}</td>
                           <td>{record.pendapatan}</td>
                           <td>{record.pengeluaran}</td>
@@ -23,7 +23,7 @@ export default function TableStatistik({
                   ))}
                   {!records.length && (
                       <tr>
-                      <td colspan="4" className="text-center">Belum ada riwayat keuangan</td>
+                      <td colSpan="4" className="text-center">Belum ada riwayat keuangan</td>
                       </tr>
                   )}
               </tbody>

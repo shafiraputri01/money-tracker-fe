@@ -91,9 +91,11 @@ export default function TambahCatatan({ posts, categories }) {
             <br></br>
             <div className="row justify-content-md-center">
               <div className="mb-3 col-1">
-                <a href="/dompet" className=" btn btn-danger text-center ms-3">
-                  Batal
-                </a>
+                <Link href="/dompet">
+                  <a className=" btn btn-danger text-center ms-3">
+                    Batal
+                  </a>
+                </Link>
               </div>
               <div className="mb-3 col-1">
                 <input

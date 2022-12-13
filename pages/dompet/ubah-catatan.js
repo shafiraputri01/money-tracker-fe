@@ -45,7 +45,7 @@ export default function UbahCatatan({ posts, categories }) {
                     name="flexRadioDefault"
                     id="flexRadioDefault1"
                   />
-                  <label className="form-check-label" for="flexRadioDefault1">
+                  <label className="form-check-label" htmlFor="flexRadioDefault1">
                     Pemasukan
                   </label>
                 </div>
@@ -57,14 +57,14 @@ export default function UbahCatatan({ posts, categories }) {
                     id="flexRadioDefault2"
                     checked
                   />
-                  <label className="form-check-label" for="flexRadioDefault2">
+                  <label className="form-check-label" htmlFor="flexRadioDefault2">
                     Pengeluaran
                   </label>
                 </div>
               </div>
             </div>
             <div className="mb-3">
-              <label for="exampleFormControlInput1" className="form-label">
+              <label htmlFor="exampleFormControlInput1" className="form-label">
                 Nominal
               </label>
               <input
@@ -75,7 +75,7 @@ export default function UbahCatatan({ posts, categories }) {
               />
             </div>
             <div className="mb-3">
-              <label for="exampleFormControlTextarea1" className="form-label">
+              <label htmlFor="exampleFormControlTextarea1" className="form-label">
                 Deskripsi
               </label>
               <input
@@ -89,9 +89,11 @@ export default function UbahCatatan({ posts, categories }) {
             <br></br>
             <div className="row justify-content-md-center">
               <div className="mb-3 col-1">
-                <a href="/dompet" className=" btn btn-danger text-center ms-3">
-                  Batal
-                </a>
+                <Link href="/dompet">
+                  <a className=" btn btn-danger text-center ms-3">
+                    Batal
+                  </a>
+                </Link>
               </div>
               <div className="mb-3 col-1">
                 <input
