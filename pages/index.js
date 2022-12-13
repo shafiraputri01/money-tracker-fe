@@ -15,21 +15,24 @@ export default function Index() {
                 <h2>MONEY TRACKER</h2>
                 <h3>Solution for tracking your money</h3>
                 <br></br>
-                <div class="d-flex justify-content-center w-100">
-                  <a
-                    class="btn button-custom button-primary me-3 buttonHover"
-                    href="/statistik"
-                    role="button"
-                  >
-                    Lihat Statistik
-                  </a>
-                  <a
-                    class="btn button-custom button-primary ms-3 buttonHover"
-                    href="/dompet"
-                    role="button"
-                  >
-                    Lihat Dompet
-                  </a>
+                <div className="d-flex justify-content-center w-100">
+                  <Link href="/statistik">
+                    <a
+                      className="btn button-custom button-primary me-3 buttonHover"
+                      href="/statistik"
+                      role="button"
+                    >
+                      Lihat Statistik
+                    </a>
+                  </Link>
+                  <Link href="/dompet">
+                    <a
+                      className="btn button-custom button-primary ms-3 buttonHover"
+                      role="button"
+                    >
+                      Lihat Dompet
+                    </a>
+                  </Link>
                 </div>
               </div>
             </div>

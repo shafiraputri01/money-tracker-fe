@@ -5,9 +5,9 @@ export default function TableStatistik({
   }) {
     return (
       <div className="col-12 record-card">
-          <table class="table table-striped table-hover">
+          <table className="table table-striped table-hover">
               <thead>
-                  <tr class="table-primary">
+                  <tr className="table-primary">
                   <th scope="col">Bulan</th>
                   <th scope="col">Pendapatan</th>
                   <th scope="col">Pengeluaran</th>

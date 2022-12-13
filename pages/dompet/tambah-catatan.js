@@ -37,51 +37,51 @@ export default function TambahCatatan({ posts, categories }) {
       <section className="form-add mb-50">
         <div className="container" style={{ width: "80%" }}>
           <div className="">
-            <div class="mb-3">
+            <div className="mb-3">
               <div className="mb-2">Jenis</div>
               <div className="row justify-content-start ml-5">
-                <div class="col-4 form-check">
+                <div className="col-4 form-check">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="radio"
                     name="flexRadioDefault"
                     id="flexRadioDefault1"
                   />
-                  <label class="form-check-label" for="flexRadioDefault1">
+                  <label className="form-check-label" htmlFor="flexRadioDefault1">
                     Pemasukan
                   </label>
                 </div>
-                <div class="col-4 form-check">
+                <div className="col-4 form-check">
                   <input
-                    class="form-check-input"
+                    className="form-check-input"
                     type="radio"
                     name="flexRadioDefault"
                     id="flexRadioDefault2"
                     checked
                   />
-                  <label class="form-check-label" for="flexRadioDefault2">
+                  <label className="form-check-label" htmlFor="flexRadioDefault2">
                     Pengeluaran
                   </label>
                 </div>
               </div>
             </div>
             <div className="mb-3">
-              <label for="exampleFormControlInput1" class="form-label">
+              <label htmlFor="exampleFormControlInput1" className="form-label">
                 Nominal
               </label>
               <input
                 type="number"
-                class="form-control"
+                className="form-control"
                 id="nominal"
                 placeholder="Masukkan jumlah nominal"
               />
             </div>
             <div className="mb-3">
-              <label for="exampleFormControlTextarea1" class="form-label">
+              <label htmlFor="exampleFormControlTextarea1" className="form-label">
                 Deskripsi
               </label>
               <input
-                class="form-control"
+                className="form-control"
                 id="deskripsi"
                 maxLength={200}
                 placeholder="Tuliskan deskripsi maks 200 karakter"
@@ -91,7 +91,7 @@ export default function TambahCatatan({ posts, categories }) {
             <br></br>
             <div className="row justify-content-md-center">
               <div className="mb-3 col-1">
-                <a href="/dompet" class=" btn btn-danger text-center ms-3">
+                <a href="/dompet" className=" btn btn-danger text-center ms-3">
                   Batal
                 </a>
               </div>

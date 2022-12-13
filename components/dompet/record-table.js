@@ -5,9 +5,9 @@ export default function RecordTable({
 }) {
   return (
     <div className="col-12 record-card">
-        <table class="table table-striped table-hover">
+        <table className="table table-striped table-hover">
             <thead>
-                <tr class="table-primary">
+                <tr className="table-primary">
                 <th scope="col">Tanggal</th>
                 <th scope="col">Nominal</th>
                 <th scope="col">Deskripsi</th>
@@ -21,7 +21,7 @@ export default function RecordTable({
                         <td>{record.amount}</td>
                         <td>{record.notes}</td>
                         <td>
-                            <Link href='/dompet/tambah-catatan'>
+                            <Link href={"/dompet/ubah-catatan/" + String(record.id)}>
                                 <a className="btn btn-warning me-2">Ubah</a>
                             </Link>
                             <Link href='/dompet/tambah-catatan'>
