@@ -18,7 +18,9 @@ export default function RecordTable({
                 {records.map(record => (
                     <tr key={record.id}>
                         <td>{record.date}</td>
-                        <td>{record.amount}</td>
+                        {record.is_income ?
+                        (<td style={{'color':'green'}}>{record.amount}</td>) : (<td style={{'color':'red'}}>-{record.amount}</td>)
+                        }
                         <td>{record.notes}</td>
                         <td>
                             <Link href={"/dompet/ubah-catatan/" + String(record.id)}>

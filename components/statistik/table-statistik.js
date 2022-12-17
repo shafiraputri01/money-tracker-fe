@@ -15,10 +15,10 @@ export default function TableStatistik({
               </thead>
               <tbody>
                   {records.map(record => (
-                      <tr key={record.id}>
-                          <td>{record.bulan}</td>
-                          <td>{record.pendapatan}</td>
-                          <td>{record.pengeluaran}</td>
+                      <tr key={record.month}>
+                          <td>{record.month}</td>
+                          <td>{record.income}</td>
+                          <td>{record.expense}</td>
                       </tr>
                   ))}
                   {!records.length && (

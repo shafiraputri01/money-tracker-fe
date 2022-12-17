@@ -1,8 +1,6 @@
 import Link from "next/link";
 
-import camelcaseKeys from "camelcase-keys";
 import Footer from "../../components/footer-section";
-import { getPostsData, getCategories } from "@/lib/api";
 import TableStatistik from "@/components/statistik/table-statistik";
 
 export default function Statistik({ records }) {
@@ -45,43 +43,17 @@ export default function Statistik({ records }) {
 }
 
 export async function getStaticProps() {
-  const butterToken = process.env.NEXT_PUBLIC_BUTTER_CMS_API_KEY;
+  const getStatistics = await fetch(
+      'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/statistic',
+      {
+          method: 'GET'
+      }
+  )
+  const statistic = await getStatistics.json()
 
-  if (butterToken) {
-    try {
-      const blogPosts = (await getPostsData()).posts;
-      const categories = await getCategories();
-
-      return { props: { posts: camelcaseKeys(blogPosts), categories } };
-    } catch (e) {
-      console.log("Could not get posts", e);
-
-      return {
-        props: { posts: [], categories: [] },
-      };
-    }
-  }
-
-  const dummy_records = [
-    {
-      id: 1,
-      bulan: "Januari",
-      pendapatan: "500000",
-      pengeluaran: "100000",
-    },
-    {
-      id: 2,
-      bulan: "Februari",
-      pendapatan: "400000",
-      pengeluaran: "250000",
-    },
-    {
-      id: 3,
-      bulan: "Maret",
-      pendapatan: "750000",
-      pengeluaran: "75000",
-    },
-  ];
-
-  return { props: { records: dummy_records } };
+  return {
+      props: {
+          records: statistic,
+      }
+  };
 }
