@@ -2,7 +2,6 @@ import Link from "next/link";
 
 import camelcaseKeys from "camelcase-keys";
 import Footer from "../../components/footer-section";
-import { getPostsData, getCategories } from "@/lib/api";
 import RecordTable from "@/components/dompet/record-table";
 
 export default function Dompet({ records, amount }) {
@@ -69,41 +68,31 @@ export default function Dompet({ records, amount }) {
 }
 
 export async function getStaticProps() {
-  const butterToken = process.env.NEXT_PUBLIC_BUTTER_CMS_API_KEY;
-
-  if (butterToken) {
-    try {
-      const blogPosts = (await getPostsData()).posts;
-      const categories = await getCategories();
-
-      return { props: { posts: camelcaseKeys(blogPosts), categories } };
-    } catch (e) {
-      console.log("Could not get posts", e);
-
-      return {
-        props: { records: [], amount: [] },
-      };
+  const getBalance = await fetch(
+    'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/balance',
+    {
+        method: 'GET'
     }
-  }
+  )
+  const balance = await getBalance.json()
 
-  let amount = (2500000).toLocaleString("id-ID", {
+  let amount = await (balance['balance']).toLocaleString("id-ID", {
     valute: "IDR",
   });
 
-  const dummy_records = [
+  const getRecords = await fetch(
+    'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/records ',
     {
-      id: 1,
-      date: "12122022",
-      amount: "50000",
-      notes: "Azzzzzzz",
-    },
-    {
-      id: 2,
-      date: "130920022",
-      amount: "25000",
-      notes: "Axxxxxxxxxxx",
-    },
-  ];
+        method: 'GET'
+    }
+  )
 
-  return { props: { records: dummy_records, amount: amount } };
+  const records = await getRecords.json()
+
+  return {
+    props: {
+      records: records,
+      amount: amount,
+    }
+  };
 }
