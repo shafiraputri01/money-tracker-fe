@@ -86,7 +86,6 @@ export async function getStaticProps() {
         method: 'GET'
     }
   )
-
   const records = await getRecords.json()
 
   return {

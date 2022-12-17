@@ -1,18 +1,20 @@
 import Link from "next/link";
 
-import Footer from "../../components/footer-section";
+import Footer from "../../../components/footer-section";
+
 import { useState, useEffect } from 'react'
 
-export default function TambahCatatan() {
-  const [amount, setAmount] = useState(0);
-  const [notes, setNotes] = useState('');
-  const [isIncome, setIsIncome] = useState(false);
+export default function UbahCatatan({ record }) {
+  const [amount, setAmount] = useState(record.amount);
+  const [notes, setNotes] = useState(record.notes);
+  const [isIncome, setIsIncome] = useState(record.is_income);
 
   let _data = {
-    "date": "2022-06-03",
+    "id": record.id,
+    "date": record.date,
     "amount": parseInt(amount, 10),
     "notes": notes,
-    "is_income": isIncome == 0 ? false : true
+    "is_income": isIncome
   }
 
   const submit = async (e) => {
@@ -22,7 +24,7 @@ export default function TambahCatatan() {
       const res = await fetch(
           'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/record',
           {
-            method: 'POST',
+            method: 'PUT',
             body: JSON.stringify(_data),
             headers: {
               'Content-Type': 'application/json',
@@ -44,7 +46,7 @@ export default function TambahCatatan() {
           <div className="row justify-content-center">
             <div className="col-12">
               <div className="section-title text-center">
-                <h2>Tambah Catatan Keuangan</h2>
+                <h2>Ubah Catatan Keuangan</h2>
                 <ul className="breadcrumb-nav">
                   <li>
                     <Link href="/">
@@ -64,7 +66,6 @@ export default function TambahCatatan() {
       </section>
 
       <form onSubmit={submit}>
-
         <section className="form-add mb-50">
           <div className="container" style={{ width: "80%" }}>
             <div className="">
@@ -77,6 +78,7 @@ export default function TambahCatatan() {
                       type="radio"
                       name="flexRadioDefault"
                       id="flexRadioDefault1"
+                      defaultChecked={isIncome ? true : false}
                       onChange={e => setIsIncome(true)}
                     />
                     <label className="form-check-label" htmlFor="flexRadioDefault1">
@@ -89,8 +91,8 @@ export default function TambahCatatan() {
                       type="radio"
                       name="flexRadioDefault"
                       id="flexRadioDefault2"
+                      defaultChecked={isIncome ? false : true}
                       onChange={e => setIsIncome(false)}
-                      checked
                     />
                     <label className="form-check-label" htmlFor="flexRadioDefault2">
                       Pengeluaran
@@ -107,6 +109,7 @@ export default function TambahCatatan() {
                   className="form-control"
                   id="nominal"
                   placeholder="Masukkan jumlah nominal"
+                  defaultValue={amount}
                   onChange={e => setAmount(e.target.value)}
                 />
               </div>
@@ -119,6 +122,7 @@ export default function TambahCatatan() {
                   id="deskripsi"
                   maxLength={200}
                   placeholder="Tuliskan deskripsi maks 200 karakter"
+                  defaultValue={notes}
                   onChange={e => setNotes(e.target.value)}
                 />
               </div>
@@ -152,3 +156,45 @@ export default function TambahCatatan() {
     </>
   );
 }
+
+export async function getStaticProps({ params }) {
+  const getRecord = await fetch(
+    'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/record?id=' + params.id.toString(),
+    {
+        method: 'GET',
+    }
+  )
+  const record = await getRecord.json()
+
+  return {
+    props: {
+      record: record,
+    }
+  };
+}
+
+export async function getStaticPaths() {
+  try {
+      const getRecords = await fetch(
+        'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/records',
+        {
+            method: 'GET',
+        }
+      )
+
+      const records = await getRecords.json()
+
+      return {
+          paths: records.map((record) => `/dompet/ubah-catatan/${record.id}`),
+          fallback: true
+      };
+  } catch (e) {
+      console.error(`Couldn't load records.`, e)
+
+      return {
+          paths: [],
+          fallback: false
+      }
+  }
+}
+
