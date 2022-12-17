@@ -109,7 +109,7 @@ export default function UbahCatatan({ record }) {
                   className="form-control"
                   id="nominal"
                   placeholder="Masukkan jumlah nominal"
-                  defaultValue={amount}
+                  defaultValue={amount ? amount : 0}
                   onChange={e => setAmount(e.target.value)}
                 />
               </div>
@@ -122,7 +122,7 @@ export default function UbahCatatan({ record }) {
                   id="deskripsi"
                   maxLength={200}
                   placeholder="Tuliskan deskripsi maks 200 karakter"
-                  defaultValue={notes}
+                  defaultValue={notes ? notes : ''}
                   onChange={e => setNotes(e.target.value)}
                 />
               </div>
