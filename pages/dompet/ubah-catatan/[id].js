@@ -35,7 +35,7 @@ export default function UbahCatatan() {
 
   useEffect(() => {
     getRecordData();
-  }, []);
+  }, [getRecordData]);
 
   const submit = async (e) => {
     e.preventDefault();

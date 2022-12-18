@@ -54,19 +54,19 @@ export default function RecordTable({ records }) {
                             </Link>
                             <a className="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteRecord">Hapus</a>
 
-                            <div class="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
-                            <div class="modal-dialog modal-dialog-centered">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="deleteRecordLabel">Hapus Catatan</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <div className="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
+                            <div className="modal-dialog modal-dialog-centered">
+                                <div className="modal-content">
+                                <div className="modal-header">
+                                    <h5 className="modal-title" id="deleteRecordLabel">Hapus Catatan</h5>
+                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="modal-body">
+                                <div className="modal-body">
                                     Apakah Anda yakin ini menghapus catatan ini?
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
-                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onClick={e => deleteRecord(e, record.id)}>Hapus</button>
+                                <div className="modal-footer">
+                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Kembali</button>
+                                    <button type="button" className="btn btn-primary" data-bs-dismiss="modal" onClick={e => deleteRecord(e, record.id)}>Hapus</button>
                                 </div>
                                 </div>
                             </div>
