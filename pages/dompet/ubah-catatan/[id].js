@@ -7,9 +7,10 @@ import Navbar from "../../../components/navbar-section";
 
 export default function UbahCatatan() {
   const [record, setRecord] = useState();
+  const [date, setDate] = useState();
   const [amount, setAmount] = useState();
   const [notes, setNotes] = useState();
-  const [isIncome, setIsIncome] = useState();
+  const [isIncome, setIsIncome] = useState(0);
 
   const router = useRouter();
   const record_id = router.query.id;
@@ -25,6 +26,7 @@ export default function UbahCatatan() {
       data => {
         if (!record) {
           setRecord(data)
+          setDate(data.date)
           setAmount(data.amount)
           setNotes(data.notes)
           setIsIncome(data.is_income)
@@ -41,14 +43,15 @@ export default function UbahCatatan() {
     e.preventDefault();
 
     let _data = {
-      "id": record.id,
-      "date": record.date,
+      "id": parseInt(record_id),
+      "date": date,
       "amount": parseInt(amount, 10),
       "notes": notes,
       "is_income": isIncome
     }
 
     try {
+      console.log(_data);
       const res = await fetch(
           'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/record',
           {
@@ -99,7 +102,7 @@ export default function UbahCatatan() {
                       name="flexRadioDefault"
                       id="flexRadioDefault1"
                       defaultChecked={isIncome ? true : false}
-                      onChange={e => setIsIncome(true)}
+                      onClick={e => setIsIncome(true)}
                     />
                     <label className="form-check-label" htmlFor="flexRadioDefault1">
                       Pemasukan
@@ -111,14 +114,27 @@ export default function UbahCatatan() {
                       type="radio"
                       name="flexRadioDefault"
                       id="flexRadioDefault2"
-                      defaultChecked={isIncome ? false : true}
-                      onChange={e => setIsIncome(false)}
+                      defaultChecked={isIncome === undefined ? false : isIncome ? false : true}
+                      onClick={e => setIsIncome(false)}
                     />
                     <label className="form-check-label" htmlFor="flexRadioDefault2">
                       Pengeluaran
                     </label>
                   </div>
                 </div>
+              </div>
+              <div className="mb-3">
+                <label htmlFor="date" className="form-label">
+                  Tanggal
+                </label>
+                <input
+                  type="date"
+                  className="form-control"
+                  id="date"
+                  defaultValue={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  required
+                />
               </div>
               <div className="mb-3">
                 <label htmlFor="exampleFormControlInput1" className="form-label">
@@ -129,8 +145,9 @@ export default function UbahCatatan() {
                   className="form-control"
                   id="nominal"
                   placeholder="Masukkan jumlah nominal"
-                  defaultValue={amount ? amount : 0}
+                  defaultValue={amount}
                   onChange={e => setAmount(e.target.value)}
+                  required
                 />
               </div>
               <div className="mb-3">
@@ -142,8 +159,9 @@ export default function UbahCatatan() {
                   id="deskripsi"
                   maxLength={200}
                   placeholder="Tuliskan deskripsi maks 200 karakter"
-                  defaultValue={notes ? notes : ''}
+                  defaultValue={notes}
                   onChange={e => setNotes(e.target.value)}
+                  required
                 />
               </div>
 

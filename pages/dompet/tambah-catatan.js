@@ -104,6 +104,7 @@ export default function TambahCatatan() {
                   className="form-control"
                   id="date"
                   onChange={(e) => setDate(e.target.value)}
+                  required
                 />
               </div>
               <div className="mb-3">
@@ -116,6 +117,7 @@ export default function TambahCatatan() {
                   id="nominal"
                   placeholder="Masukkan jumlah nominal"
                   onChange={(e) => setAmount(e.target.value)}
+                  required
                 />
               </div>
               <div className="mb-3">
@@ -128,6 +130,7 @@ export default function TambahCatatan() {
                   maxLength={200}
                   placeholder="Tuliskan deskripsi maks 200 karakter"
                   onChange={(e) => setNotes(e.target.value)}
+                  required
                 />
               </div>
 

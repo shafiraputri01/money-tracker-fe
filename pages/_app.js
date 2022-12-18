@@ -26,7 +26,6 @@ function MyApp({ Component, pageProps, mainMenu }) {
   const authToken = process.env.NEXT_PUBLIC_BUTTER_CMS_API_KEY
 
   useEffect(() => {
-    import("bootstrap/dist/js/bootstrap.js");
 
     const showLoader = () => {
       setIsLoading(true);
