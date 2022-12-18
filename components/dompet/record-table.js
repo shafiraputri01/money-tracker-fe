@@ -54,7 +54,7 @@ export default function RecordTable({ records }) {
                             </Link>
                             <a className="btn btn-danger me-2" data-bs-toggle="modal" data-bs-target="#deleteRecord">Hapus</a>
 
-                            <div className="modal fade" id="deleteRecord" tabindex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
+                            <div className="modal fade" id="deleteRecord" tabIndex="-1" aria-labelledby="deleteRecordLabel" aria-hidden="true">
                             <div className="modal-dialog modal-dialog-centered">
                                 <div className="modal-content">
                                 <div className="modal-header">
