@@ -1,13 +1,41 @@
 import Link from "next/link";
-
-import Footer from "../../../components/footer-section";
-
+import { useRouter } from "next/router";
 import { useState, useEffect } from 'react'
 
-export default function UbahCatatan({ record }) {
-  const [amount, setAmount] = useState(record? record.amount : 0);
-  const [notes, setNotes] = useState(record? record.notes : '');
-  const [isIncome, setIsIncome] = useState(record? record.is_income : 0);
+import Footer from "../../../components/footer-section";
+import Navbar from "../../../components/navbar-section";
+
+export default function UbahCatatan() {
+  const [record, setRecord] = useState();
+  const [amount, setAmount] = useState();
+  const [notes, setNotes] = useState();
+  const [isIncome, setIsIncome] = useState();
+
+  const router = useRouter();
+  const record_id = router.query.id;
+
+  const getRecordData = async () => { await fetch(
+      'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/record?id=' + record_id,
+      {
+          method: 'GET',
+      }
+    ).then(
+      res => res.json()
+    ).then(
+      data => {
+        if (!record) {
+          setRecord(data)
+          setAmount(data.amount)
+          setNotes(data.notes)
+          setIsIncome(data.is_income)
+        }
+      }
+    )
+  }
+
+  useEffect(() => {
+    getRecordData();
+  }, []);
 
   const submit = async (e) => {
     e.preventDefault();
@@ -34,6 +62,8 @@ export default function UbahCatatan({ record }) {
 
       const data = await res.json();
       console.log(data);
+
+      router.push('/dompet')
     } catch (err) {
       console.log(err);
     }
@@ -41,24 +71,14 @@ export default function UbahCatatan({ record }) {
 
   return (
     <>
+      <Navbar />
+
       <section id="blog-roll" className="blog-roll-nav">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-12">
               <div className="section-title text-center">
                 <h2>Ubah Catatan Keuangan</h2>
-                <ul className="breadcrumb-nav">
-                  <li>
-                    <Link href="/">
-                      <a>Home</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/statistik">
-                      <a>Lihat Statistik</a>
-                    </Link>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
@@ -157,44 +177,47 @@ export default function UbahCatatan({ record }) {
   );
 }
 
-export async function getStaticProps({ params }) {
-  const getRecord = await fetch(
-    'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/record?id=' + params.id.toString(),
-    {
-        method: 'GET',
-    }
-  )
-  const record = await getRecord.json()
+// export async function getServerSideProps() {
+//   const router = useRouter();
+//   const record_id = router.query.id;
 
-  return {
-    props: {
-      record: record,
-    }
-  };
-}
+//   const getRecord = await fetch(
+//     'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/record?id=' + record_id,
+//     {
+//         method: 'GET',
+//     }
+//   )
+//   const record = await getRecord.json()
 
-export async function getStaticPaths() {
-  try {
-      const getRecords = await fetch(
-        'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/records',
-        {
-            method: 'GET',
-        }
-      )
+//   return {
+//     props: {
+//       record: record,
+//     }
+//   };
+// }
 
-      const records = await getRecords.json()
+// export async function getStaticPaths() {
+//   try {
+//       const getRecords = await fetch(
+//         'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/records',
+//         {
+//             method: 'GET',
+//         }
+//       )
 
-      return {
-          paths: records.map((record) => `/dompet/ubah-catatan/${record.id}`),
-          fallback: true
-      };
-  } catch (e) {
-      console.error(`Couldn't load records.`, e)
+//       const records = await getRecords.json()
 
-      return {
-          paths: [],
-          fallback: false
-      }
-  }
-}
+//       return {
+//           paths: records.map((record) => `/dompet/ubah-catatan/${record.id}`),
+//           fallback: true
+//       };
+//   } catch (e) {
+//       console.error(`Couldn't load records.`, e)
+
+//       return {
+//           paths: [],
+//           fallback: false
+//       }
+//   }
+// }
 

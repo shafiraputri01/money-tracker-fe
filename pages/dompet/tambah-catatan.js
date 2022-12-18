@@ -1,22 +1,27 @@
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useState, useEffect } from 'react'
 
 import Footer from "../../components/footer-section";
-import { useState, useEffect } from 'react'
+import Navbar from "../../components/navbar-section";
 
 export default function TambahCatatan() {
   const [amount, setAmount] = useState(0);
+  const [date, setDate] = useState('');
   const [notes, setNotes] = useState('');
-  const [isIncome, setIsIncome] = useState(false);
+  const [isIncome, setIsIncome] = useState(0);
 
-  let _data = {
-    "date": "2022-06-03",
-    "amount": parseInt(amount, 10),
-    "notes": notes,
-    "is_income": isIncome == 0 ? false : true
-  }
+  const router = useRouter();
 
   const submit = async (e) => {
     e.preventDefault();
+
+    let _data = {
+      "date": date,
+      "amount": parseInt(amount, 10),
+      "notes": notes,
+      "is_income": isIncome,
+    }
 
     try {
       const res = await fetch(
@@ -32,6 +37,8 @@ export default function TambahCatatan() {
 
       const data = await res.json();
       console.log(data);
+
+      router.push('/dompet')
     } catch (err) {
       console.log(err);
     }
@@ -39,24 +46,14 @@ export default function TambahCatatan() {
 
   return (
     <>
+      <Navbar />
+
       <section id="blog-roll" className="blog-roll-nav">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-12">
               <div className="section-title text-center">
                 <h2>Tambah Catatan Keuangan</h2>
-                <ul className="breadcrumb-nav">
-                  <li>
-                    <Link href="/">
-                      <a>Home</a>
-                    </Link>
-                  </li>
-                  <li>
-                    <Link href="/statistik">
-                      <a>Lihat Statistik</a>
-                    </Link>
-                  </li>
-                </ul>
               </div>
             </div>
           </div>
@@ -75,11 +72,11 @@ export default function TambahCatatan() {
                     <input
                       className="form-check-input"
                       type="radio"
-                      name="flexRadioDefault"
-                      id="flexRadioDefault1"
-                      onChange={e => setIsIncome(true)}
+                      name="isIncome"
+                      id="isIncomeTrue"
+                      onChange={() => setIsIncome(true)}
                     />
-                    <label className="form-check-label" htmlFor="flexRadioDefault1">
+                    <label className="form-check-label" htmlFor="isIncomeTrue">
                       Pemasukan
                     </label>
                   </div>
@@ -87,19 +84,30 @@ export default function TambahCatatan() {
                     <input
                       className="form-check-input"
                       type="radio"
-                      name="flexRadioDefault"
-                      id="flexRadioDefault2"
-                      onChange={e => setIsIncome(false)}
-                      checked
+                      name="isIncome"
+                      id="isIncomeFalse"
+                      onChange={() => setIsIncome(false)}
+                      defaultChecked
                     />
-                    <label className="form-check-label" htmlFor="flexRadioDefault2">
+                    <label className="form-check-label" htmlFor="isIncomeFalse">
                       Pengeluaran
                     </label>
                   </div>
                 </div>
               </div>
               <div className="mb-3">
-                <label htmlFor="exampleFormControlInput1" className="form-label">
+                <label htmlFor="date" className="form-label">
+                  Tanggal
+                </label>
+                <input
+                  type="date"
+                  className="form-control"
+                  id="date"
+                  onChange={(e) => setDate(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label htmlFor="nominal" className="form-label">
                   Nominal
                 </label>
                 <input
@@ -107,11 +115,11 @@ export default function TambahCatatan() {
                   className="form-control"
                   id="nominal"
                   placeholder="Masukkan jumlah nominal"
-                  onChange={e => setAmount(e.target.value)}
+                  onChange={(e) => setAmount(e.target.value)}
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="exampleFormControlTextarea1" className="form-label">
+                <label htmlFor="deskripsi" className="form-label">
                   Deskripsi
                 </label>
                 <input
@@ -119,7 +127,7 @@ export default function TambahCatatan() {
                   id="deskripsi"
                   maxLength={200}
                   placeholder="Tuliskan deskripsi maks 200 karakter"
-                  onChange={e => setNotes(e.target.value)}
+                  onChange={(e) => setNotes(e.target.value)}
                 />
               </div>
 

@@ -1,19 +1,53 @@
 import Link from "next/link";
 
-import camelcaseKeys from "camelcase-keys";
 import Footer from "../../components/footer-section";
+import Navbar from "../../components/navbar-section";
 import RecordTable from "@/components/dompet/record-table";
+import { useState, useEffect } from 'react'
 
-export default function Dompet({ records, amount }) {
+export default function Dompet() {
+  const [balance, setBalance] = useState(0);
+  const [isBalanceNegatif, setIsBalanceNegatif] = useState(false);
+  const [records, setRecords] = useState([]);
+
+  useEffect(() => {
+    fetch(
+      'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/balance',
+      {
+          method: 'GET'
+      }
+    ).then(
+      res => res.json()
+    ).then(
+      data => {
+        setIsBalanceNegatif(data.balance < 0 ? true : false)
+        setBalance(Math.abs(data.balance))
+      }
+    )
+
+    fetch(
+      'http://money-tracker-be.13.114.233.184.sslip.io/api/v1/records ',
+      {
+          method: 'GET'
+      }
+    ).then(
+      res => res.json()
+    ).then(
+      data => setRecords(data)
+    )
+  });
+
   return (
     <>
+      <Navbar />
+
       <section id="blog-roll" className="blog-roll-nav">
         <div className="container">
           <div className="row justify-content-center">
             <div className="col-12">
               <div className="section-title text-center">
                 <h2>Dompet</h2>
-                <ul className="breadcrumb-nav">
+                {/* <ul className="breadcrumb-nav">
                   <li>
                     <Link href="/">
                       <a>Home</a>
@@ -24,7 +58,7 @@ export default function Dompet({ records, amount }) {
                       <a>Lihat Statistik</a>
                     </Link>
                   </li>
-                </ul>
+                </ul> */}
               </div>
             </div>
           </div>
@@ -40,7 +74,10 @@ export default function Dompet({ records, amount }) {
                   <h3>Saldo</h3>
                 </div>
                 <div className="amount-section">
-                  <p className="amount">Rp {amount}</p>
+                  { isBalanceNegatif ?
+                    <p style={{'color':'red'}} className="amount">-Rp{balance.toLocaleString("id-ID", {valute: "IDR"})}</p> :
+                    <p style={{'color':'green'}} className="amount">Rp{balance.toLocaleString("id-ID", {valute: "IDR"})}</p>
+                  }
                 </div>
               </div>
 
