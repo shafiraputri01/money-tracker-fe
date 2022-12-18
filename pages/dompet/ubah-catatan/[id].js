@@ -5,9 +5,9 @@ import Footer from "../../../components/footer-section";
 import { useState, useEffect } from 'react'
 
 export default function UbahCatatan({ record }) {
-  const [amount, setAmount] = useState(record.amount? record.amount : 0);
-  const [notes, setNotes] = useState(record.notes? record.notes : '');
-  const [isIncome, setIsIncome] = useState(record.is_income? record.is_income : 0);
+  const [amount, setAmount] = useState(record? record.amount : 0);
+  const [notes, setNotes] = useState(record? record.notes : '');
+  const [isIncome, setIsIncome] = useState(record? record.is_income : 0);
 
   const submit = async (e) => {
     e.preventDefault();
